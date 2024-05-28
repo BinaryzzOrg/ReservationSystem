@@ -1,11 +1,22 @@
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Main {
 	// === FIELD VARIABLES === //
+	static CustomCalendar calendarObj = new CustomCalendar();
+	private static final String[] TYPE_ROOM = {"Room", "Suite", "Villa"};
+	private static final String[] AMENITIES_PER_TYPEROOM = {"Television, Air_Conditioned, Internet Access"
+,"43-LED Wide Screen TV, Air_Conditioned, \n Internet Access, \n Kitchen Accessibility, Large Sofa"
+,	"Luxury Bathroom, Priority Dining Reservations, \n Espresso Coffee Machine, Internet Access, \n 43-LED Wide Screen TV, Air_Conditioned"};												;
+
+	private static final double[] PRICEPER_TYPEROOM = {2199.0f, 12699.0f, 6531.0f};
+	
+	
 
 	// === MAIN METHOD === //
 	public static void main(String[] args) {
-		Menu();
+		printAccommodationListingMenu();
+		//Menu();
 	}// end class
 
 	/*
@@ -101,8 +112,7 @@ public class Main {
 	public static int checkUserInputInteger(String prompt) {
 		sc = new Scanner(System.in);
 		if (sc.hasNextInt()) {
-			int value = sc.nextInt();
-			return value;
+			return sc.nextInt();
 		} // end if
 		System.out.println(printCustomError("integer"));
 		System.out.print(prompt);
@@ -217,11 +227,12 @@ public class Main {
 	public static String checkContact() {
 		String contact = checkUserInputString("Contact Number: ");
 
-		if (contact.length() > 11 || contact.length() < 11) {
-			if (contact.charAt(0) != '0' || contact.charAt(1) != '9') {
-				System.out.print("This is not a valid Phillipine contact number");
-				checkContact();
-			} // end if
+		boolean contactConitions = (contact.length() > 11 || contact.length() < 11) && (contact.charAt(0) != '0' || contact.charAt(1) != '9');
+		// end if
+		if (contactConitions)
+		 {
+			System.out.print("This is not a valid Phillipine contact number");
+			checkContact();
 		} // end if
 
 		return contact;
@@ -251,14 +262,29 @@ public class Main {
 
 		System.out.print("\nWhat is your Check-Out Date: \n");
 		CalendarNode endingDate = setDates();
-
+		
+		printPrefferedAccomodationListing();
+		
+		int typeAccomodation = checkUserInputInteger("Enter num that corresponds to the table: ");
+		
 		System.out.print("\nAre these dates correct?: \n");
 		System.out.print("[Y/n]?");
 		switch (checkUserInputChar("[Y/n]?")) {
 		case 'Y': {
+			
+			AccomodationNode thisAccomodation =
+					new AccomodationNode(TYPE_ROOM[typeAccomodation], AMENITIES_PER_TYPEROOM[typeAccomodation], PRICEPER_TYPEROOM[typeAccomodation]);
+			
+			ReservationObj theReservedAcccomodation = new ReservationObj(thisAccomodation, startingDate, endingDate);
+			
+			System.out.println(theReservedAcccomodation);
+			
 			calendar.makeReservation(startingDate, endingDate);
 			calendar.printCalendar(startingDate.getMonth(), startingDate.getYear());
 			calendar.printCalendar(endingDate.getMonth(), endingDate.getYear());
+			
+			printAccommodationListingMenu();
+			
 			break;
 		}
 		case 'N': {
@@ -308,28 +334,102 @@ public class Main {
 
 		System.out.print("Number of Persons: ");
 		int numOfPerson = checkUserInputInteger("Number of Persons: ");
-
+		
 		// -1 to not include rep sa count
-		String[] otherGuests = new String[numOfPerson];
-		for (int i = 0; i < numOfPerson; i++) {
-			System.out.print((i + 1) + ".) Name of the Guest: ");
-			otherGuests[i] = checkUserInputString("Number of the Guest: ");
-		} // end for
-		System.out.print("+====================================+");
-
+				String[] otherGuests = new String[numOfPerson - 1];
+				for (int i = 0; i < numOfPerson; i++) {
+					System.out.print((i + 1) + ".) Name of the Guest: ");
+					otherGuests[i] = checkUserInputString("Number of the Guest: ");
+				} // end for
+				System.out.print("+====================================+");
+		
 		GuestNode guest = new GuestNode(rep_FirstName, rep_LastName, rep_Email, rep_Contact, numOfPerson, otherGuests);
+		
 		// @formatter:on
-	}// end method
+	}// end method	
 
-	public void printAccommodiationListingMenu() {
+	public static void printAccommodationListingMenu() {
 		// @formatter:off
-		System.out.println(
-				"+=========================================+\n"+ 
-				"|      |\n"+ 
-				"|      |\n"+ 
-				"|      |\n"+ 
-				"|      |\n"+ 
-				"+=========================================+\n"+ 
-				"|      |");
+		//to get current month without user input but can be improve if there's formula
+		final GregorianCalendar now = new GregorianCalendar();
+		int monthToStart = now.get(GregorianCalendar.MONTH);
+		
+		printPrefferedAccomodationListing();
+				
+			while (true) {
+				System.out.print("""
+
+						+========================================================+
+						|     	  View Availability Calendar?                    |
+						|  [1]Yes                                   		     |
+						|  [2]Proceed to Reservation Process                     |
+						|  [3]Return to Accomodation Listing                     |
+						+========================================================+
+						\
+						""");
+				
+				int response = checkUserInputInteger("");
+				
+				if (response == 2) { 
+					ReservationManagement();
+					break;
+				} else if (response == 1) {
+					
+				monthToStart++;
+				/*
+				 * prints the months between 2024-2025
+				 * nested loop to traverse to months while also controlling the following year to put in.
+				 * prints the months between the starting month and ends also with the starting month with a different year.
+				 * parameter of monthToStart to determine where to start.
+				 * consecutive loops (1st loop traverse to remaining months of 2024 and second, prints the starting months of 2025
+				 * until it points to the begin month again.
+				 */
+				for (int theMonth = monthToStart; theMonth <= 12; theMonth++) {
+					calendarObj.printCalendar(theMonth, 2024);
+				}
+				
+				for (int theMonth = 1; theMonth <= monthToStart; theMonth++) {
+					calendarObj.printCalendar(theMonth, 2025);
+				}
+				
+				
+				} else if (response == 3) {
+					printAccommodationListingMenu();
+				}
+				
+			}
+		
 	}//end method
+	//display of accomodations choices
+	public static void printPrefferedAccomodationListing() {
+		System.out.print("""
+
+				+========================================================+
+				|     	   --  Accomodation Listing  --     		 |
+				|                                     		         |
+				+========================================================+
+				\
+				""");
+		
+				for (int index = 0; index < TYPE_ROOM.length; index++) {
+					System.out.print("|[" + (index + 1)  + "]   " + TYPE_ROOM[index]  + "  ||₱" + PRICEPER_TYPEROOM[index]  + "||\n|" + AMENITIES_PER_TYPEROOM[index]);
+					System.out.print("\n+");
+					System.out.println("========================================================");
+				}
+	}
+	
+	public static void ReservationManagement() {
+		System.out.print("""
+
+				+========================================================+
+				|     	   --  Reservation Management  --     	 	  |
+				|                                     		          |
+				+========================================================+
+				\
+				""");
+		
+				printCheckInAndOutCalendar();
+		
+	}
+	
 }// end class
