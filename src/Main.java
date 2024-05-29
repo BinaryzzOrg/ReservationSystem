@@ -1,3 +1,4 @@
+
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -13,6 +14,10 @@ public class Main {
 			"| 43-LED Wide Screen TV, Air_Conditioned, Internet Access, \n| Kitchen Accessibility, Large Sofa",
 			"| 43-LED Wide Screen TV, Air_Conditioned, Internet Access, \n| Priority Dining Reservations, Luxury Bathroom, \n| Espresso Coffee Machine" };
 
+	static boolean askForDateAgain = true;
+	static int monthToStart = 0;
+	static DateFormat formatNow;
+	static CalendarNode temp;
 	private static final double[] PRICEPER_TYPEROOM = { 2199.0f, 12699.0f, 6531.0f };
 
 	// === MAIN METHOD === //
@@ -44,10 +49,10 @@ public class Main {
 
 	/*
 	 * The MenuChoices method contains the following operations: Append, Delete,
-	 * Change Value, Display, Node History, List` History,and Exit. This method
-	 * calls the PrintMenuChoices that prints out the choices for modifying the
-	 * Persistent Singly LinkedList that is chosen by the user. MenuChoices method
-	 * also handles miss inputs of the user and loops if it detects one.
+	 * Change Value, Display, Node History, List History,and Exit. This method calls
+	 * the PrintMenuChoices that prints out the choices for modifying the Persistent
+	 * Singly LinkedList that is chosen by the user. MenuChoices method also handles
+	 * miss inputs of the user and loops if it detects one.
 	 */
 	static Scanner sc;
 
@@ -249,13 +254,32 @@ public class Main {
 					""";
 		// @formatter:on
 	}// end method
+	/*
+	 * reservation used to validate if inputted check in/out already passed through
+	 * the current date next is it store the chose accomodation to a new accmodation
+	 * node and the node will be encapsulate to the reservation obj to better manage
+	 * following reservations Then, it prints the calendar of starting month and
+	 * ending month with markings alloted for this reservation
+	 */
 
 	public static void printCheckInAndOutCalendar() {
-		System.out.print("\n| What is your Check-In Date: \n");
+		System.out.print("\nWhat is your Check-In Date: \n");
 		CalendarNode startingDate = setDates();
 
-		System.out.print("\n| What is your Check-Out Date: \n");
+		if (!startingDate.compareIfEarlier(temp)) {
+			System.out.println("Date inputted is earlier to the current date. ");
+			printCheckInAndOutCalendar();
+			return;
+		}
+
+		System.out.print("\nWhat is your Check-Out Date: \n");
 		CalendarNode endingDate = setDates();
+
+		if (!endingDate.compareIfEarlier(temp)) {
+			System.out.println("Date inputted is earlier to the current date. ");
+			printCheckInAndOutCalendar();
+			return;
+		}
 
 		printPrefferedAccomodationListing();
 
@@ -345,10 +369,17 @@ public class Main {
 
 	public static void printAccommodationListingMenu() {
 		// @formatter:off
-		//to get current month without user input but can be improve if there's formula
-		final GregorianCalendar now = new GregorianCalendar();
-		int monthToStart = now.get(GregorianCalendar.MONTH);
-		monthToStart++;
+		
+		if (askForDateAgain) {
+			System.out.println("Before proceeding to checking the available accomodation...\n"
+					+ "Please input the Date of Inquiring for Reservation: ");
+			temp = setDates();
+			
+			monthToStart = temp.getMonth();
+			formatNow = new DateFormat(monthToStart, temp.getDate(), temp.getYear());
+			askForDateAgain = false;
+			}
+		
 		printPrefferedAccomodationListing();
 				
 			while (true) {
@@ -364,8 +395,6 @@ public class Main {
 						Select an operation>\s""");
 				
 				int response = checkUserInputInteger("");
-				
-				
 				
 				if (response == 2) { 
 					ReservationManagement();
@@ -403,6 +432,7 @@ public class Main {
 				
 				} else if (response == 3) {
 					printAccommodationListingMenu();
+				}
 				}//end if else
 			}//end while
 	}//end method
