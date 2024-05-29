@@ -2,7 +2,7 @@ public class CustomDate {
 	//@formatter:off
 	private CalendarNode occupiedList;
 	private CalendarNode latestOccupied;
-	private String[] MONTHS = {"January",
+	final private String[] MONTHS = {"January",
 			   "February",
 			   "March",
 			   "April",
@@ -108,6 +108,12 @@ public class CustomDate {
 						return true;
 					
 					if(givenEndingDate >= startingDate && givenEndingDate <= endingDate)
+						return true;
+
+					if(startingDate >= givenStartingDate && startingDate <= givenEndingDate)
+						return true;
+					
+					if(endingDate >= givenStartingDate && endingDate <= givenEndingDate)
 						return true;
 				}
 			}
