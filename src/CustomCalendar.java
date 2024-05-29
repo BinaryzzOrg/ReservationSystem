@@ -3,17 +3,17 @@ public class CustomCalendar {
 	//@formatter:off
 	private CustomDate reservedDates = new CustomDate();
 	final private String[] MONTHS = {"January",
-							   "February",
-							   "March",
-							   "April",
-							   "May",
-							   "June",
-							   "July",
-							   "August",
-							   "September",
-							   "October",
-							   "November",
-							   "December"};
+					 "February",
+					 "March",
+					 "April",
+					 "May",
+					 "June",
+					 "July",
+					 "August",
+					 "September",
+					 "October",
+					 "November",
+					 "December"};
 	
 	final private String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	
@@ -117,15 +117,6 @@ public class CustomCalendar {
 							 + "\nStarting Date: " + MONTHS[startingDate.getMonth() - 1] + " " + startingDate.getDate() + ", " + startingDate.getYear()
 							 + "\nEnding Date: " + MONTHS[endingDate.getMonth() - 1] + " " + endingDate.getDate() + ", " + endingDate.getYear()
 							 + "\n+============================================================+");
-	}
-	
-	public void print() {
-		CalendarNode root = reservedDates.getOccupiedList();
-		
-		while(root != null) {
-			System.out.println(root.getDate());
-			root = root.getNext();
-		}
 	}
 	
 	private boolean checkDateValidity(CalendarNode date) {
