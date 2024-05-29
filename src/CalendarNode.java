@@ -54,4 +54,52 @@ public class CalendarNode {
 	public void setYear(int year) {
 		this.year = year;
 	}
+	//check if reserved date are already passed by the current date now
+	//boolean method that returns if following properties of date is less than the current properties of date now
+	public boolean compareIfEarlier(CalendarNode validateNode) {
+		if (this.getMonth() < validateNode.getMonth()) {
+			return false;
+		} else if (this.getMonth() > validateNode.getMonth()) {
+			return true;
+		} else {
+			if (this.getDate() < validateNode.getDate()) {
+				return false;
+			} else if (this.getDate() == validateNode.getDate()){
+				return true;
+			} else if (this.getDate() > validateNode.getDate()) {
+				return true;
+			} else {
+				return this.year > validateNode.getYear();
+				}
+			
+			}
+		
+		}
+}
+
+class DateFormat {
+	private int month;
+	private int day;
+	private int year;
+	
+	
+	public DateFormat(int month, int day, int year) {
+		this.month = month;
+		this.day = day;
+		this.year = year;
+	}
+
+	public String toString() {
+		return "Date now: " + month + "/" + day + "/" + year;
+	}
+	
+	public int getMonth() {
+		return month;
+	}
+	public int getDay() {
+		return day;
+	}
+	public int getYear() {
+		return year;
+	}
 }
