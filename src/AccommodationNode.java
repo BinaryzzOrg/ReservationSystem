@@ -1,23 +1,23 @@
 
 //Node class used for later for Admin panel
-public class AccomodationNode {
+public class AccommodationNode {
 	private String chosenType;
 	private String amenities;
 	private double pricePerNight;
-	private AccomodationNode nextAccomodation;
+	private AccommodationNode nextAccomodation;
 
-	public AccomodationNode(String chosenType, String amenities, double pricePerNight) {
+	public AccommodationNode(String chosenType, String amenities, double pricePerNight) {
 		this.chosenType = chosenType;
 		this.amenities = amenities;
 		this.pricePerNight = pricePerNight;
 	}
 	
 	
-	public AccomodationNode getNextAccomodation() {
+	public AccommodationNode getNextAccomodation() {
 		return nextAccomodation;
 	}
 
-	public void setNextAccomodation(AccomodationNode nextAccomodation) {
+	public void setNextAccomodation(AccommodationNode nextAccomodation) {
 		this.nextAccomodation = nextAccomodation;
 	}
 

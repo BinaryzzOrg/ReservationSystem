@@ -3,7 +3,10 @@ import java.util.Scanner;
 
 public class Main {
 	// === FIELD VARIABLES === //
-	static CustomCalendar calendarObj = new CustomCalendar();
+	static CustomCalendar RoomCalendarObj = new CustomCalendar();
+	static CustomCalendar SuiteCalendarObj = new CustomCalendar();
+	static CustomCalendar VillaCalendarObj = new CustomCalendar();
+	static CustomCalendar[] calendarObjs = {RoomCalendarObj, SuiteCalendarObj, VillaCalendarObj};
 	private static final String[] TYPE_ROOM = {"Room", "Suite", "Villa"};
 	private static final String[] AMENITIES_PER_TYPEROOM = {"Television, Air_Conditioned, Internet Access"
 ,"43-LED Wide Screen TV, Air_Conditioned, \n Internet Access, \n Kitchen Accessibility, Large Sofa"
@@ -256,7 +259,6 @@ public class Main {
 	}// end method
 
 	public static void printCheckInAndOutCalendar() {
-		CustomCalendar calendar = new CustomCalendar();
 		System.out.print("\nWhat is your Check-In Date: \n");
 		CalendarNode startingDate = setDates();
 
@@ -265,23 +267,23 @@ public class Main {
 		
 		printPrefferedAccomodationListing();
 		
-		int typeAccomodation = checkUserInputInteger("Enter num that corresponds to the table: ");
+		int typeAccommodation = checkUserInputInteger("Enter num that corresponds to the table: ") - 1;
 		
 		System.out.print("\nAre these dates correct?: \n");
 		System.out.print("[Y/n]?");
 		switch (checkUserInputChar("[Y/n]?")) {
 		case 'Y': {
 			
-			AccomodationNode thisAccomodation =
-					new AccomodationNode(TYPE_ROOM[typeAccomodation], AMENITIES_PER_TYPEROOM[typeAccomodation], PRICEPER_TYPEROOM[typeAccomodation]);
+			AccommodationNode thisAccommodation =
+					new AccommodationNode(TYPE_ROOM[typeAccommodation], AMENITIES_PER_TYPEROOM[typeAccommodation], PRICEPER_TYPEROOM[typeAccommodation]);
 			
-			ReservationObj theReservedAcccomodation = new ReservationObj(thisAccomodation, startingDate, endingDate);
+			ReservationObj theReservedAcccommodation = new ReservationObj(thisAccommodation, startingDate, endingDate);
 			
-			System.out.println(theReservedAcccomodation);
+			System.out.println(theReservedAcccommodation);
 			
-			calendar.makeReservation(startingDate, endingDate);
-			calendar.printCalendar(startingDate.getMonth(), startingDate.getYear());
-			calendar.printCalendar(endingDate.getMonth(), endingDate.getYear());
+			calendarObjs[typeAccommodation].makeReservation(startingDate, endingDate);
+			calendarObjs[typeAccommodation].printCalendar(startingDate.getMonth(), startingDate.getYear());
+			calendarObjs[typeAccommodation].printCalendar(endingDate.getMonth(), endingDate.getYear());
 			
 			printAccommodationListingMenu();
 			
@@ -353,7 +355,7 @@ public class Main {
 		//to get current month without user input but can be improve if there's formula
 		final GregorianCalendar now = new GregorianCalendar();
 		int monthToStart = now.get(GregorianCalendar.MONTH);
-		
+		monthToStart++;
 		printPrefferedAccomodationListing();
 				
 			while (true) {
@@ -361,9 +363,9 @@ public class Main {
 
 						+========================================================+
 						|     	  View Availability Calendar?                    |
-						|  [1]Yes                                   		     |
+						|  [1]Yes                                                |
 						|  [2]Proceed to Reservation Process                     |
-						|  [3]Return to Accomodation Listing                     |
+						|  [3]Return to Accommodation Listing                    |
 						+========================================================+
 						\
 						""");
@@ -374,24 +376,35 @@ public class Main {
 					ReservationManagement();
 					break;
 				} else if (response == 1) {
+					System.out.print("""
+
+							+========================================================+
+							|     	        Check Availability Calendar              |
+							|  [1]Room                                               |
+							|  [2]Suite                                              |
+							|  [3]Villa                                              |
+							+========================================================+
+							\
+							""");
+
+					int choiceAccommodation = checkUserInputInteger("");
 					
-				monthToStart++;
-				/*
-				 * prints the months between 2024-2025
-				 * nested loop to traverse to months while also controlling the following year to put in.
-				 * prints the months between the starting month and ends also with the starting month with a different year.
-				 * parameter of monthToStart to determine where to start.
-				 * consecutive loops (1st loop traverse to remaining months of 2024 and second, prints the starting months of 2025
-				 * until it points to the begin month again.
-				 */
-				for (int theMonth = monthToStart; theMonth <= 12; theMonth++) {
-					calendarObj.printCalendar(theMonth, 2024);
-				}
-				
-				for (int theMonth = 1; theMonth <= monthToStart; theMonth++) {
-					calendarObj.printCalendar(theMonth, 2025);
-				}
-				
+					/*
+					 * prints the months between 2024-2025
+					 * nested loop to traverse to months while also controlling the following year to put in.
+					 * prints the months between the starting month and ends also with the starting month with a different year.
+					 * parameter of monthToStart to determine where to start.
+					 * consecutive loops (1st loop traverse to remaining months of 2024 and second, prints the starting months of 2025
+					 * until it points to the begin month again.
+					 */
+					for (int theMonth = monthToStart; theMonth <= 12; theMonth++) {
+						calendarObjs[choiceAccommodation-1].printCalendar(theMonth, 2024);
+					}
+					
+					for (int theMonth = 1; theMonth <= monthToStart; theMonth++) {
+						calendarObjs[choiceAccommodation-1].printCalendar(theMonth, 2025);
+					}
+					
 				
 				} else if (response == 3) {
 					printAccommodationListingMenu();
@@ -400,12 +413,12 @@ public class Main {
 			}
 		
 	}//end method
-	//display of accomodations choices
+	//display of accommodations choices
 	public static void printPrefferedAccomodationListing() {
 		System.out.print("""
 
 				+========================================================+
-				|     	   --  Accomodation Listing  --     		 |
+				|     	   --  Accommodation Listing  --     		 |
 				|                                     		         |
 				+========================================================+
 				\
