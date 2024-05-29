@@ -77,12 +77,19 @@ public class CalendarNode {
 		}
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 class DateFormat {
 	private int month;
 	private int day;
 	private int year;
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 	public DateFormat(int month, int day, int year) {
 		this.month = month;
 		this.day = day;

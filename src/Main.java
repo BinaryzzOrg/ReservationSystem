@@ -5,16 +5,30 @@ public class Main {
 	static CustomCalendar RoomCalendarObj = new CustomCalendar();
 	static CustomCalendar SuiteCalendarObj = new CustomCalendar();
 	static CustomCalendar VillaCalendarObj = new CustomCalendar();
+<<<<<<< HEAD
 	static CustomCalendar[] calendarObjs = { RoomCalendarObj, SuiteCalendarObj, VillaCalendarObj };
 	private static final String[] TYPE_ROOM = { "Room", "Suite", "Villa" };
 	private static final String[] AMENITIES_PER_TYPEROOM = { "Television, Air_Conditioned, Internet Access",
 			"43-LED Wide Screen TV, Air_Conditioned, \n Internet Access, \n Kitchen Accessibility, Large Sofa",
 			"Luxury Bathroom, Priority Dining Reservations, \n Espresso Coffee Machine, Internet Access, \n 43-LED Wide Screen TV, Air_Conditioned" };;
+=======
+	static CustomCalendar[] calendarObjs = {RoomCalendarObj, SuiteCalendarObj, VillaCalendarObj};
+	private static final String[] TYPE_ROOM = {"Room", "Suite", "Villa"};
+	private static final String[] AMENITIES_PER_TYPEROOM = {"Television, Air_Conditioned, Internet Access"
+,"43-LED Wide Screen TV, Air_Conditioned, \n Internet Access, \n Kitchen Accessibility, Large Sofa"
+,	"Luxury Bathroom, Priority Dining Reservations, \n Espresso Coffee Machine, Internet Access, \n 43-LED Wide Screen TV, Air_Conditioned"};												;
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 	static boolean askForDateAgain = true;
 	static int monthToStart = 0;
 	static DateFormat formatNow;
 	static CalendarNode temp;
+<<<<<<< HEAD
 	private static final double[] PRICEPER_TYPEROOM = { 2199.0f, 12699.0f, 6531.0f };
+=======
+	private static final double[] PRICEPER_TYPEROOM = {2199.0f, 12699.0f, 6531.0f};
+	
+	
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 
 	// === MAIN METHOD === //
 	public static void main(String[] args) {
@@ -258,6 +272,7 @@ public class Main {
 		// @formatter:on
 	}// end method
 	/*
+<<<<<<< HEAD
 	 * reservation used to validate if inputted check in/out already passed through
 	 * the current date next is it store the chose accomodation to a new accmodation
 	 * node and the node will be encapsulate to the reservation obj to better manage
@@ -265,9 +280,22 @@ public class Main {
 	 * ending month with markings alloted for this reservation
 	 */
 
+=======
+	 * reservation used to validate if inputted check in/out already passed through the current date 
+	 * next is it store the chose accomodation to a new accmodation node and the node
+	 *  will be encapsulate to the reservation obj to better manage following reservations
+	 *  Then, it prints the calendar of starting month and ending month with markings alloted for this reservation
+	 */
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 	public static void printCheckInAndOutCalendar() {
 		System.out.print("\nWhat is your Check-In Date: \n");
 		CalendarNode startingDate = setDates();
+		
+		if (!startingDate.compareIfEarlier(temp)) {
+			System.out.println("Date inputted is earlier to the current date. ");
+			printCheckInAndOutCalendar();
+			return;
+		}
 
 		if (!startingDate.compareIfEarlier(temp)) {
 			System.out.println("Date inputted is earlier to the current date. ");
@@ -277,13 +305,21 @@ public class Main {
 
 		System.out.print("\nWhat is your Check-Out Date: \n");
 		CalendarNode endingDate = setDates();
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 		if (!endingDate.compareIfEarlier(temp)) {
 			System.out.println("Date inputted is earlier to the current date. ");
 			printCheckInAndOutCalendar();
 			return;
 		}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 		printPrefferedAccomodationListing();
 
 		int typeAccommodation = checkUserInputInteger("Enter num that corresponds to the table: ") - 1;
@@ -332,6 +368,7 @@ public class Main {
 	}// end method
 
 	public static void printRegisterUserMenu() {
+		
 
 		// @formatter:off
 		System.out.print("\n" +
@@ -365,7 +402,12 @@ public class Main {
 		System.out.print("+====================================+");
 
 		GuestNode guest = new GuestNode(rep_FirstName, rep_LastName, rep_Email, rep_Contact, numOfPerson, otherGuests);
+<<<<<<< HEAD
 
+=======
+		
+		
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
 		// @formatter:on
 	}// end method
 
@@ -472,4 +514,10 @@ public class Main {
 		
 	}
 	
+<<<<<<< HEAD
 }// end class
+=======
+}// end class
+
+
+>>>>>>> 05668ebfd4dd38ec99c0a1c898b8294464266f3b
