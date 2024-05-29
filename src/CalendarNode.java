@@ -77,11 +77,11 @@ public class CalendarNode {
 		}
 }
 
+
 class DateFormat {
 	private int month;
 	private int day;
 	private int year;
-	
 	
 	public DateFormat(int month, int day, int year) {
 		this.month = month;

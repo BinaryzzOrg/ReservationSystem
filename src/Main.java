@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Main {
@@ -8,11 +7,9 @@ public class Main {
 	static CustomCalendar VillaCalendarObj = new CustomCalendar();
 	static CustomCalendar[] calendarObjs = { RoomCalendarObj, SuiteCalendarObj, VillaCalendarObj };
 	private static final String[] TYPE_ROOM = { "Room", "Suite", "Villa" };
-	private static final String[] AMENITIES_PER_TYPEROOM = {
-			"| 43-LED Wide Screen TV, Air_Conditioned, Internet Access ",
-			"| 43-LED Wide Screen TV, Air_Conditioned, Internet Access, \n| Kitchen Accessibility, Large Sofa",
-			"| 43-LED Wide Screen TV, Air_Conditioned, Internet Access, \n| Priority Dining Reservations, Luxury Bathroom, \n| Espresso Coffee Machine" };
-
+	private static final String[] AMENITIES_PER_TYPEROOM = { "Television, Air_Conditioned, Internet Access",
+			"43-LED Wide Screen TV, Air_Conditioned, \n Internet Access, \n Kitchen Accessibility, Large Sofa",
+			"Luxury Bathroom, Priority Dining Reservations, \n Espresso Coffee Machine, Internet Access, \n 43-LED Wide Screen TV, Air_Conditioned" };;
 	static boolean askForDateAgain = true;
 	static int monthToStart = 0;
 	static DateFormat formatNow;
@@ -22,7 +19,7 @@ public class Main {
 	// === MAIN METHOD === //
 	public static void main(String[] args) {
 		printAccommodationListingMenu();
-//		Menu();
+		// Menu();
 	}// end class
 
 	/*
@@ -32,17 +29,20 @@ public class Main {
 	 * use the 'prompt' String.
 	 */
 	public static String printMenuChoices() {
-		String MenuChoicesAsString = """
-				\n
-				+=============================+
-				|       --  MainMenu  --      |
-				+=============================+
-				| (1) : Book Guests           |
-				| (2) : Accommodation Listing |
-				| (1) : Admin Panel           |
-				| (1) : Exit                  |
-				+=============================+
-				Select an operation>\s""";
+		//@formatter:off
+		String MenuChoicesAsString = "\n" 
+				+ "       {MainMenu}\n" 
+				+ "+=======================+\n"
+				+ "| (1) : Book Guests\n" 
+				+ "| (2) : Accommodation Listing\n" 
+				+ "| (3) : \n" 
+				+ "| (4) : \n" 
+				+ "| (5) : \n" 
+				+ "| (6) : \n" 
+				+ "| (7) : Exit \n" 
+				+ "+=======================+\n"
+				+ "Select an operation> ";
+		//@formatter:on
 		return MenuChoicesAsString;
 	}// end method
 
@@ -68,8 +68,7 @@ public class Main {
 			break;
 		}
 		case 2: {// 
-			printAccommodationListingMenu();
-//			printCheckInAndOutCalendar();
+			printCheckInAndOutCalendar();
 			break;
 		}
 		case 3: {// 
@@ -78,18 +77,25 @@ public class Main {
 		case 4: {// 
 			break;
 		}
+		case 5: {// 
+			break;
+		}
+		case 6: {// 
+			break;
+		}
+		case 7: {// 
+			break;
+		}
 		default:
 			// @formatter:off
-			System.out.println("""
-					\n
-					⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃ 
-					┇ Error:                                            ┇
-					┇ Input is not a valid Menu choice.                 ┇
-					⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃
-					┇ Msg:                                              ┇
-					┇ Please enter only 1 to 7 as input                 ┇
-					⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃
-					""");
+			System.out.println("\n" 
+					+ "⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃\n" 
+					+ "┇ Error: \n"
+					+ "┇ Input is not a valid Menu choice. \n"
+					+ "⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃\n" 
+					+ "┇ Msg: \n"
+					+ "┇ Please enter only 1 to 7 as input \n"
+					+ "⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃");
 			// @formatter:on
 			break;
 		}// end method
@@ -243,14 +249,12 @@ public class Main {
 	 */
 	public static String printCustomError(String type) {
 		// @formatter:off
-			return """
-					\n
-					⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃
-					┇ Warning: Input is not a "+ type +" value. 
-					⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃
-					┇ Notice: Please only enter a "+ type +" value.
-					⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃
-					""";
+			return "\n" +
+						"⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃\n" +
+						"┇ Warning: Input is not a "+ type +" value. \n" +
+						"⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃\n" +
+						"┇ Notice: Please only enter a "+ type +" value.\n" +
+						"⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃\n";
 		// @formatter:on
 	}// end method
 	/*
@@ -284,7 +288,7 @@ public class Main {
 
 		int typeAccommodation = checkUserInputInteger("Enter num that corresponds to the table: ") - 1;
 
-		System.out.print("\n| Are these dates correct?: \n");
+		System.out.print("\nAre these dates correct?: \n");
 		System.out.print("[Y/n]?");
 		switch (checkUserInputChar("[Y/n]?")) {
 		case 'Y': {
@@ -330,13 +334,12 @@ public class Main {
 	public static void printRegisterUserMenu() {
 
 		// @formatter:off
-		System.out.print("""
-				\n
-				+=====================================+
-				|     --  Personal Information  --    |
-				|           [Representative]          |
-				+=====================================+
-				First Name:\s""");
+		System.out.print("\n" +
+				"+=====================================+\n"+
+				"|     --  Personal Information  --    |\n"+
+				"|           [Representative]          |\n"+
+				"+=====================================+\n"+
+				"First Name: ");
 		String rep_FirstName = checkUserInputString("First Name: ");
 		// @formatter:on
 
@@ -383,15 +386,15 @@ public class Main {
 				
 			while (true) {
 				System.out.print("""
-						\n
-						+========================================+
-						|   --  View Availability Calendar  --   |
-						+========================================+
-						| (1) : Yes                              |
-						| (2) : Proceed to Reservation Process   |
-						| (3) : Return to Accommodation Listing  |
-						+========================================+
-						Select an operation>\s""");
+
+						+========================================================+
+						|     	  View Availability Calendar?                    |
+						|  [1]Yes                                                |
+						|  [2]Proceed to Reservation Process                     |
+						|  [3]Return to Accommodation Listing                    |
+						+========================================================+
+						\
+						""");
 				
 				int response = checkUserInputInteger("");
 				
@@ -400,15 +403,15 @@ public class Main {
 					break;
 				} else if (response == 1) {
 					System.out.print("""
-							\n
-							+=========================================+
-							|   --  Check Availability Calendar  --   |
-							+=========================================+
-							| (1) : Room                              |
-							| (2) : Suite                             |
-							| (3) : Villa                             |
-							+=========================================+
-							Select an operation>\s""");
+
+							+========================================================+
+							|     	        Check Availability Calendar              |
+							|  [1]Room                                               |
+							|  [2]Suite                                              |
+							|  [3]Villa                                              |
+							+========================================================+
+							\
+							""");
 
 					int choiceAccommodation = checkUserInputInteger("");
 					
@@ -431,34 +434,42 @@ public class Main {
 				
 				} else if (response == 3) {
 					printAccommodationListingMenu();
-				}//end if else
-			}//end while
+				}
+				
+			}
+		
 	}//end method
-	
 	//display of accommodations choices
 	public static void printPrefferedAccomodationListing() {
+		System.out.println(formatNow);
 		System.out.print("""
-				\n
-				+=========================================================+
-				|               --  Accommodation Listing  --             |
-				+=========================================================+
+			
+				+========================================================+
+				|     	   --  Accommodation Listing  --     		 |
+				|                                     		         |
+				+========================================================+
+				\
 				""");
 		
 				for (int index = 0; index < TYPE_ROOM.length; index++) {
-					System.out.print("| Type:(" + (index + 1)  + ")  |" + TYPE_ROOM[index]  + "|    Price Per Night:|₱" + PRICEPER_TYPEROOM[index]  + "|\n| \n| Amenities: \n" + AMENITIES_PER_TYPEROOM[index] + "\n");
-					System.out.println("+=========================================================+");
-				}//end for
-				
-	}//end method
+					System.out.print("|[" + (index + 1)  + "]   " + TYPE_ROOM[index]  + "  ||₱" + PRICEPER_TYPEROOM[index]  + "||\n|" + AMENITIES_PER_TYPEROOM[index]);
+					System.out.print("\n+");
+					System.out.println("========================================================");
+				}
+	}
 	
 	public static void ReservationManagement() {
 		System.out.print("""
 
-				+====================================+
-				|   --  Reservation Management  --   |
-				+====================================+
+				+========================================================+
+				|     	   --  Reservation Management  --     	 	  |
+				|                                     		          |
+				+========================================================+
+				\
 				""");
+		
 				printCheckInAndOutCalendar();
-	}//end method
+		
+	}
 	
 }// end class
