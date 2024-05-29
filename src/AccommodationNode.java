@@ -11,8 +11,7 @@ public class AccommodationNode {
 		this.amenities = amenities;
 		this.pricePerNight = pricePerNight;
 	}
-	
-	
+
 	public AccommodationNode getNextAccomodation() {
 		return nextAccomodation;
 	}
@@ -33,12 +32,9 @@ public class AccommodationNode {
 		return pricePerNight;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Type: " + getChosenType() + "\nAmenities: " + getAmenities() + "\nPrice: " + getPricePerNight();
 	}
-	
-	
 
 }
