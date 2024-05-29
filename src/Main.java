@@ -1,4 +1,3 @@
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +10,10 @@ public class Main {
 	private static final String[] AMENITIES_PER_TYPEROOM = {"Television, Air_Conditioned, Internet Access"
 ,"43-LED Wide Screen TV, Air_Conditioned, \n Internet Access, \n Kitchen Accessibility, Large Sofa"
 ,	"Luxury Bathroom, Priority Dining Reservations, \n Espresso Coffee Machine, Internet Access, \n 43-LED Wide Screen TV, Air_Conditioned"};												;
-
+	static boolean askForDateAgain = true;
+	static int monthToStart = 0;
+	static DateFormat formatNow;
+	static CalendarNode temp;
 	private static final double[] PRICEPER_TYPEROOM = {2199.0f, 12699.0f, 6531.0f};
 	
 	
@@ -257,13 +259,30 @@ public class Main {
 						"⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃⁃\n";
 		// @formatter:on
 	}// end method
-
+	/*
+	 * reservation used to validate if inputted check in/out already passed through the current date 
+	 * next is it store the chose accomodation to a new accmodation node and the node
+	 *  will be encapsulate to the reservation obj to better manage following reservations
+	 *  Then, it prints the calendar of starting month and ending month with markings alloted for this reservation
+	 */
 	public static void printCheckInAndOutCalendar() {
 		System.out.print("\nWhat is your Check-In Date: \n");
 		CalendarNode startingDate = setDates();
+		
+		if (!startingDate.compareIfEarlier(temp)) {
+			System.out.println("Date inputted is earlier to the current date. ");
+			printCheckInAndOutCalendar();
+			return;
+		}
 
 		System.out.print("\nWhat is your Check-Out Date: \n");
 		CalendarNode endingDate = setDates();
+		
+		if (!endingDate.compareIfEarlier(temp)) {
+			System.out.println("Date inputted is earlier to the current date. ");
+			printCheckInAndOutCalendar();
+			return;
+		}
 		
 		printPrefferedAccomodationListing();
 		
@@ -313,6 +332,7 @@ public class Main {
 	}// end method
 
 	public static void printRegisterUserMenu() {
+		
 
 		// @formatter:off
 		System.out.print("\n" +
@@ -347,15 +367,23 @@ public class Main {
 		
 		GuestNode guest = new GuestNode(rep_FirstName, rep_LastName, rep_Email, rep_Contact, numOfPerson, otherGuests);
 		
+		
 		// @formatter:on
 	}// end method	
 
 	public static void printAccommodationListingMenu() {
 		// @formatter:off
-		//to get current month without user input but can be improve if there's formula
-		final GregorianCalendar now = new GregorianCalendar();
-		int monthToStart = now.get(GregorianCalendar.MONTH);
-		monthToStart++;
+		
+		if (askForDateAgain) {
+			System.out.println("Before proceeding to checking the available accomodation...\n"
+					+ "Please input the Date of Inquiring for Reservation: ");
+			temp = setDates();
+			
+			monthToStart = temp.getMonth();
+			formatNow = new DateFormat(monthToStart, temp.getDate(), temp.getYear());
+			askForDateAgain = false;
+			}
+		
 		printPrefferedAccomodationListing();
 				
 			while (true) {
@@ -415,8 +443,9 @@ public class Main {
 	}//end method
 	//display of accommodations choices
 	public static void printPrefferedAccomodationListing() {
+		System.out.println(formatNow);
 		System.out.print("""
-
+			
 				+========================================================+
 				|     	   --  Accommodation Listing  --     		 |
 				|                                     		         |
@@ -446,3 +475,5 @@ public class Main {
 	}
 	
 }// end class
+
+

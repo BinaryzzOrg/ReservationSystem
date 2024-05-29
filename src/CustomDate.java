@@ -125,13 +125,9 @@ public class CustomDate {
 	private int returnLastDayOfGivenMonth(int year, int month) {
 		final boolean EVEN_MONTHS = month == 4 || month == 6 || month == 9 || month == 11;
 		if (month == 14) {
-			if (year % 4 == 0) {
-				return 29;
-			} else return 28;
+			return year % 4 == 0 ? 29 : 28;
 		}
 	
-		if (EVEN_MONTHS) {
-			return 30;
-		} else return 31;
+		return EVEN_MONTHS ? 30 : 31;
 	}
 }
