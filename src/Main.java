@@ -1,5 +1,4 @@
 
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Main {
@@ -432,7 +431,6 @@ public class Main {
 				
 				} else if (response == 3) {
 					printAccommodationListingMenu();
-				}
 				}//end if else
 			}//end while
 	}//end method
